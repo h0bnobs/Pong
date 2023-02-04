@@ -37,11 +37,11 @@ public class Ball {
         }
 
         if(vy > 0) {
-            if(this.rect.y + this.rect.height > Constants.SCREEN_HEIGHT) {
+            if(this.rect.y + this.rect.height > Constants.SCREEN_HEIGHT - 5) {//bottom of screen
                 this.vy *= -1;
             }
         } else if(vy < 0) {
-            if(this.rect.y < 10) {
+            if(this.rect.y < 25) {//top of screen
                 this.vy *= -1;
             }
         }
