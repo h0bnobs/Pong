@@ -9,16 +9,28 @@ public class PlayerController {
         this.keyListener = keyListener;
     }
 
+    public PlayerController(Rect rect) {
+        this.rect = rect;
+        this.keyListener = null;
+    }
+
     public void update(double dt) {
-        if(keyListener.isKeyPressed(KeyEvent.VK_DOWN)) {
-            if (rect.y < Constants.SCREEN_HEIGHT - 109) {
-                this.rect.y += 0.5;
+        if (keyListener != null) {
+            if (keyListener.isKeyPressed(KeyEvent.VK_DOWN)) {
+                moveDown(dt);
+            } else if (keyListener.isKeyPressed(KeyEvent.VK_UP)) {
+                moveUp(dt);
             }
         }
-        else if(keyListener.isKeyPressed(KeyEvent.VK_UP)) {
-            if (rect.y > 25) {
-                this.rect.y -= 0.5;
-            }
+    }
+    public void moveUp ( double dt){
+        if (rect.y > 25) {
+            this.rect.y -= 0.5;
+        }
+    }
+    public void moveDown ( double dt){
+        if (rect.y < Constants.SCREEN_HEIGHT - 109) {
+            this.rect.y += 0.5;
         }
     }
 }

@@ -1,6 +1,5 @@
 import javax.swing.JFrame;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 public class Window extends JFrame implements Runnable{
 
@@ -8,8 +7,10 @@ public class Window extends JFrame implements Runnable{
     public KL keyListener = new KL();
     public Rect playerOne;
     public Rect ai;
-    public Rect ball;
+    public Rect ballRect;
     public PlayerController playerController;
+    public AiController aiController;
+    public Ball ball;
 
 
     public Window() {
@@ -27,7 +28,10 @@ public class Window extends JFrame implements Runnable{
         playerController = new PlayerController(playerOne, keyListener);
 
         ai = new Rect(Constants.SCREEN_WIDTH - Constants.PADDLE_WIDTH - Constants.HZ_PADDING, 40, Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT, Constants.PADDLE_COLOR);
-        ball = new Rect(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2, Constants.BALL_WIDTH, 10, Constants.PADDLE_COLOR);
+        ballRect = new Rect(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2, Constants.BALL_WIDTH, 10, Constants.PADDLE_COLOR);
+        ball = new Ball(ballRect, playerOne, ai);
+
+        aiController = new AiController(new PlayerController(ai), ballRect);
     }
 
     public void update(double dt) {
@@ -37,11 +41,9 @@ public class Window extends JFrame implements Runnable{
         this.draw(dbg);
         g2.drawImage(dbImage, 0, 0, this);
 
-        g2.setColor(Color.BLACK);
-        g2.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
-
         playerController.update(dt);
-
+        aiController.update(dt);
+        ball.update(dt);
     }
 
     public void draw(Graphics g) {
@@ -50,7 +52,8 @@ public class Window extends JFrame implements Runnable{
         g2.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
         playerOne.draw(g2);
         ai.draw(g2);
-        ball.draw(g2);
+        ballRect.draw (g2);
+
     }
 
     public void run() {
@@ -61,6 +64,7 @@ public class Window extends JFrame implements Runnable{
             lastFrameTime = time;
 
             update(deltaTime);
+
         }
 
     }
