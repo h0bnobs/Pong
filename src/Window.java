@@ -11,6 +11,8 @@ public class Window extends JFrame implements Runnable{
     public PlayerController playerController;
     public AiController aiController;
     public Ball ball;
+    public Text lefScoreText, rightScoreText;
+
 
 
     public Window() {
@@ -19,17 +21,18 @@ public class Window extends JFrame implements Runnable{
         this.setResizable(false);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         this.addKeyListener(keyListener);
+        lefScoreText = new Text(0, new Font("Arial", Font.BOLD, 20), 30, 70);
+        rightScoreText = new Text(0, new Font("Arial", Font.BOLD, 20), Constants.SCREEN_WIDTH - 30 -20, 70);
 
         g2 = (Graphics2D)this.getGraphics();
 
-        playerOne = new Rect(Constants.HZ_PADDING, 40, Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT, Color.WHITE);
+        playerOne = new Rect(Constants.HZ_PADDING, 200, Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT, Color.WHITE);
         playerController = new PlayerController(playerOne, keyListener);
 
-        ai = new Rect(Constants.SCREEN_WIDTH - Constants.PADDLE_WIDTH - Constants.HZ_PADDING, 40, Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT, Constants.PADDLE_COLOR);
-        ballRect = new Rect(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2, Constants.BALL_WIDTH, 10, Constants.PADDLE_COLOR);
-        ball = new Ball(ballRect, playerOne, ai);
+        ai = new Rect(Constants.SCREEN_WIDTH - Constants.PADDLE_WIDTH - Constants.HZ_PADDING, 200, Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT, Color.WHITE);
+        ballRect = new Rect(400, 300, Constants.BALL_WIDTH, 10, Constants.PADDLE_COLOR);
+        ball = new Ball(ballRect, playerOne, ai, lefScoreText, rightScoreText);
 
         aiController = new AiController(new PlayerController(ai), ballRect);
     }
@@ -50,6 +53,9 @@ public class Window extends JFrame implements Runnable{
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+
+        lefScoreText.draw(g2);
+        rightScoreText.draw(g2);
         playerOne.draw(g2);
         ai.draw(g2);
         ballRect.draw (g2);

@@ -8,7 +8,7 @@ public class Constants {
     public static final double PADDLE_HEIGHT = 100;
     public static final Color PADDLE_COLOR = Color.white;
     public static final double BALL_WIDTH = 10;
-//    public static final double BALL_HEIGHT = 10;
     public static final double HZ_PADDING = 40;
+    public static final double WIN_SCORE = 11;
 
 }

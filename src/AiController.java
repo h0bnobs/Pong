@@ -5,6 +5,7 @@ public class AiController {
     public AiController(PlayerController playerController, Rect ball) {
         this.playerController = playerController;
         this.ball = ball;
+
     }
 
     public void update(double dt) {
@@ -16,5 +17,4 @@ public class AiController {
             playerController.moveDown(dt);
         }
     }
-
 }

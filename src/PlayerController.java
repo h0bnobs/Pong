@@ -23,14 +23,14 @@ public class PlayerController {
             }
         }
     }
-    public void moveUp (double dt){
+    public void moveUp (double dt){//top of the screen
         if (rect.y > 25) {
-            this.rect.y -= 0.5;
+            this.rect.y -= 0.2;
         }
     }
     public void moveDown (double dt){
-        if (rect.y < Constants.SCREEN_HEIGHT - 109) {
-            this.rect.y += 0.5;
+        if (rect.y < Constants.SCREEN_HEIGHT - 109) {//bottom of the screen
+            this.rect.y += 0.2;
         }
     }
 }
