@@ -3,7 +3,7 @@ import java.awt.event.KeyListener;
 
 public class KL implements KeyListener {
 
-    private boolean keyPressed[] = new boolean[128];//initialise new boolean variable
+    private final boolean[] keyPressed = new boolean[128];//initialise new boolean variable
 
     @Override
     public void keyTyped(KeyEvent keyEvent) {

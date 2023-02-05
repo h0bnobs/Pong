@@ -74,11 +74,9 @@ public class MainMenu extends JFrame implements Runnable{
         //System.out.println(mouseListener.getMouseX());
         //System.out.println(mouseListener.getMouseY());
     }
-
     public void stop() {
         isRunning = false;
     }
-
     public void run() {
         double lastFrameTime = 0.0;
         while (isRunning) {
@@ -90,6 +88,5 @@ public class MainMenu extends JFrame implements Runnable{
 
         }
         this.dispose();
-        return;
     }
 }
