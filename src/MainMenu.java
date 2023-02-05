@@ -7,6 +7,7 @@ public class MainMenu extends JFrame implements Runnable{
     public KL keyListener = new KL();
     public ML mouseListener = new ML();
     public Text startGame, exitGame, pong;
+    public boolean isRunning = true;
 
     public MainMenu() {
         this.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -33,16 +34,24 @@ public class MainMenu extends JFrame implements Runnable{
 
         if(mouseListener.getMouseX() > startGame.x && mouseListener.getMouseX() < startGame.x + startGame.width &&
             mouseListener.getMouseY() > startGame.y - startGame.height / 2.0 && mouseListener.getMouseY() < startGame.y + startGame.height / 2.0) {
-            //change colour to grey
+            //change colour of start to grey
             startGame.color = new Color(132, 132, 132);
+
+            if(mouseListener.isMousePressed()) {//they have clicked, and we want to start the game
+                //want to return to main. want to tell main that game state has been changed from main menu, to the window
+                Main.changeState(1);
+            }
         } else {
             startGame.color = Color.WHITE;
         }
 
         if(mouseListener.getMouseX() > exitGame.x && mouseListener.getMouseX() < exitGame.x + exitGame.width &&
                 mouseListener.getMouseY() > exitGame.y - exitGame.height / 2.0 && mouseListener.getMouseY() < exitGame.y + exitGame.height / 2.0) {
-            //change colour to grey
+            //change colour of exit to grey
             exitGame.color = new Color(132, 132, 132);
+            if(mouseListener.isMousePressed()) {//if exit is clicked, close down.
+                Main.changeState(2);
+            }
         } else {
             exitGame.color = Color.WHITE;
         }
@@ -53,6 +62,12 @@ public class MainMenu extends JFrame implements Runnable{
         g2.setColor(Color.PINK);
         g2.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
+        //smile:)
+        g2.setColor(Color.WHITE);
+        g2.fillArc(230, 200, 20, 20, 90, 360);
+        g2.fillArc(270, 200, 20, 20, 90, 360);
+        g2.fillArc(240, 220, 40, 40, 180, 180);
+
         startGame.draw(g2);
         exitGame.draw(g2);
         pong.draw(g2);
@@ -60,9 +75,13 @@ public class MainMenu extends JFrame implements Runnable{
         //System.out.println(mouseListener.getMouseY());
     }
 
+    public void stop() {
+        isRunning = false;
+    }
+
     public void run() {
         double lastFrameTime = 0.0;
-        while (true) {
+        while (isRunning) {
             double time = Time.getTime();
             double deltaTime = time - lastFrameTime;
             lastFrameTime = time;
@@ -70,6 +89,7 @@ public class MainMenu extends JFrame implements Runnable{
             update(deltaTime);
 
         }
-
+        this.dispose();
+        return;
     }
 }

@@ -12,6 +12,7 @@ public class Window extends JFrame implements Runnable{
     public AiController aiController;
     public Ball ball;
     public Text lefScoreText, rightScoreText;
+    public boolean isRunning = true;
 
 
 
@@ -22,8 +23,8 @@ public class Window extends JFrame implements Runnable{
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.addKeyListener(keyListener);
-        lefScoreText = new Text(0, new Font("Arial", Font.BOLD, 20), 30, 70);
-        rightScoreText = new Text(0, new Font("Arial", Font.BOLD, 20), Constants.SCREEN_WIDTH - 30 -20, 70);
+        lefScoreText = new Text(0, new Font("Arial", Font.BOLD, 20), 60, 70);
+        rightScoreText = new Text(0, new Font("Arial", Font.BOLD, 20), Constants.SCREEN_WIDTH - 50 -20, 70);
 
         g2 = (Graphics2D)this.getGraphics();
 
@@ -59,12 +60,15 @@ public class Window extends JFrame implements Runnable{
         playerOne.draw(g2);
         ai.draw(g2);
         ballRect.draw (g2);
+    }
 
+    public void stop() {
+        isRunning = false;
     }
 
     public void run() {
         double lastFrameTime = 0.0;
-        while (true) {
+        while (isRunning) {
             double time = Time.getTime();
             double deltaTime = time - lastFrameTime;
             lastFrameTime = time;
@@ -72,6 +76,7 @@ public class Window extends JFrame implements Runnable{
             update(deltaTime);
 
         }
-
+        this.dispose();
+        return;
     }
 }

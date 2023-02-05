@@ -56,17 +56,16 @@ public class Ball {
 
         if(this.rect.x + this.rect.width < leftPaddle.x -20) {//if the ball has gone off the left side of the screen
             score(rightScoreText);
-            if(Integer.parseInt(rightScoreText.text) >= Constants.WIN_SCORE) {
-                System.out.println("AI wins");
+            if(Integer.parseInt(rightScoreText.text) >= Constants.WIN_SCORE) {//win condition for AI
+                Main.changeState(2);
             }
         } else if(this.rect.x > rightPaddle.x + rightPaddle.width + 20) {//if the left side of the ball is greater than the right side of the right paddle
             score(leftScoreText);
             if(Integer.parseInt(leftScoreText.text) >= Constants.WIN_SCORE) {
-                System.out.println("Player wins");
+                Main.changeState(2);
             }
         }
     }
-
     private void score(Text leftScoreText) {
         int leftScore = Integer.parseInt(leftScoreText.text);
         leftScore ++;
